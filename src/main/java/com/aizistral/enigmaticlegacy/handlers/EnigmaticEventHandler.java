@@ -1511,10 +1511,9 @@ public class EnigmaticEventHandler {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onLivingDeath(LivingDeathEvent event) {
 
-		if (event.getEntity() instanceof Player && !event.getEntity().level().isClientSide) {
-			Player player = (Player) event.getEntity();
+		if (event.getEntity() instanceof Player player && !player.level().isClientSide) {
 
-			/*
+            /*
 			 * Immortality handler for Heart of Creation and Pearl of the Void.
 			 */
 
@@ -1532,13 +1531,8 @@ public class EnigmaticEventHandler {
 				player.setHealth(1);
 			} else {
 				if (SuperpositionHandler.isTheWorthyOne(player)) {
-					boolean infinitum = false;
-
-					if (player.getMainHandItem() != null && player.getMainHandItem().getItem() == EnigmaticItems.THE_INFINITUM) {
-						infinitum = true;
-					} else if (player.getMainHandItem() != null && player.getMainHandItem().getItem() == EnigmaticItems.THE_INFINITUM) {
-						infinitum = true;
-					}
+					boolean infinitum = player.getMainHandItem().getItem() == EnigmaticItems.THE_INFINITUM
+							|| player.getOffhandItem().getItem() == EnigmaticItems.THE_INFINITUM;
 
 					if (infinitum) {
 						if (Math.random() <= TheInfinitum.undeadProbability.getValue().asMultiplier(false)) {
